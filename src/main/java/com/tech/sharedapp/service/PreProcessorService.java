@@ -1,20 +1,21 @@
 package com.tech.sharedapp.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationListener;
-import org.springframework.context.event.ContextRefreshedEvent;
+import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
+public class PreProcessorService {
 
-@Component
-public class PreProcessorService implements ApplicationListener<ContextRefreshedEvent> {
+    private final Environment environment;
 
-    @Autowired
-    private Environment environment;
-
-    @Override
-    public void onApplicationEvent(ContextRefreshedEvent event) {
+    public void initialiseAudit() {
         System.out.println("##### Ruuning pre processor ##"+ environment.getProperty("db.schema")+ " #####");
+        System.out.println("##### Ruuning pre processor ##"+ environment.getProperty("db.audit.table")+ " #####");
+        System.out.println("##### Ruuning pre processor ##"+ environment.getProperty("db.audit.mapping_table")+ " #####");
+        System.out.println("##### Ruuning pre processor ##"+ environment.getProperty("db.audit.audit_mode")+ " #####");
+        System.out.println("##### Ruuning pre processor ##"+ environment.getProperty("db.audit.audit_retention")+ " #####");
     }
+
 }
